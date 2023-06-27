@@ -1,0 +1,82 @@
+.wiki-thumb {
+width: calc(100% - 1.2em);
+/*max-width: 20vw;*/
+margin: 0.56em;
+}
+
+.tippy-box[data-theme~=wikilight] {
+background-color: white;
+box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
+padding: 0;
+font-size: 16px;
+color: black;
+cursor: pointer;
+min-width: 300px;
+min-height: 200px;
+}
+
+[data-theme~=wikilight] .tippy-arrow {
+color: white;
+}
+
+[data-theme~=wikilight] .tippy-content {
+padding: 0;
+}
+
+.tippy-box[data-theme~=wikidark] {
+background-color: #241d22;
+box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
+padding: 0;
+font-size: 16px;
+color: white;
+cursor: pointer;
+min-width: 300px;
+min-height: 200px;
+}
+    
+[data-theme~=wikidark] .tippy-arrow {
+color: #241d22;
+}
+
+[data-theme~=wikidark] .tippy-content {
+padding: 0;
+}
+
+.tippy-wiki-blurb {
+padding: 0 0.4em 0.4em 0.8em;
+text-align: left;
+}
+
+.tippy-box[data-animation=scale-extreme][data-placement^=top] {
+transform-origin: bottom
+}
+
+.tippy-box[data-animation=scale-extreme][data-placement^=bottom] {
+transform-origin: top
+}
+
+.tippy-box[data-animation=scale-extreme][data-placement^=left] {
+transform-origin: right
+}
+
+.tippy-box[data-animation=scale-extreme][data-placement^=right] {
+transform-origin: left
+}
+
+.tippy-box[data-animation=scale-extreme][data-state=hidden] {
+transform: scale(0);
+opacity: .25
+}
+
+#temp {
+top: 0;
+left: 0;
+position: absolute;
+pointer-events: none;
+z-index: 5;
+opacity: 0;
+/* width: 20px;
+height:20px;
+border-radius: 50%;
+background-color: aqua; */
+}
