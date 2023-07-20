@@ -19,7 +19,7 @@ class ProfileConfig:
     def value(self, new_value: Any):
         mw.pm.profile[self.keyword] = new_value
 
-    def remove(self):
+    def remove(self) -> None:
         try:
             del mw.pm.profile[self.keyword]
         except KeyError:
@@ -27,7 +27,6 @@ class ProfileConfig:
             pass
 
 
-# shortcut in editor
 lookup_trigger = ProfileConfig("lookupTrigger", "W")
 lookup_language = ProfileConfig("lookupLanguage", "en")
 backside = ProfileConfig("backside", True)

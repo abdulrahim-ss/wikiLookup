@@ -10,7 +10,7 @@ from aqt.gui_hooks import addons_dialog_will_show
 from .settings import Settings
 from .config import lookup_trigger, lookup_language, backside
 
-VERSION = "1.0.0"
+VERSION = "2.0"
 
 class configDialogue:
     """
@@ -27,19 +27,22 @@ class configDialogue:
 
     def set_settings(self, shortcut: str, lang: str, front_or_back: bool) -> None:
         """
-            Set the add-on's settings to the user specified values (in the config dialogue)
+            Set the add-on's settings to the user specified values (in the config dialogue).
         """
         lookup_trigger.value = shortcut
         lookup_language.value = self.langs[lang]
         backside.value = front_or_back
 
-    def save_addons_window(self, addons) -> None:
+    def save_addons_window(self, addons: Optional[AddonsDialog]) -> None:
         """
-            
+            Saves the layout of the add-on's settings dialogue, which must be configured before it is shown.
         """
         self.addons_current = addons
 
     def show_settings(self) -> None:
+        """
+            Instantiate the settings dialogue and show it to the user.
+        """
         dialog = Settings(self.addons_current, self.set_settings)
 
         dialog.setupUi(
