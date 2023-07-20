@@ -11,6 +11,9 @@ class Settings(QDialog):
     """
 
     def __init__(self, parent, callback):
+        """
+            Callback function handles passing the settings values along to the rest of the add-on code.
+        """
         super().__init__(parent=parent)
         self.ui = Ui_Settings()
         self.ui.setupUi(self)
@@ -18,6 +21,9 @@ class Settings(QDialog):
         self.layout().setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
     def setupUi(self, shortcut: str, Version: str, langs: list, current_lang: str, backside: bool) -> None:
+        """
+            Sets the values for the UI elements in the config dialogue. Called upon initialization.
+        """
         self.ui.lookupTrigger.setKeySequence(QKeySequence(shortcut))
         self.ui.version.setText(f"v {Version}")
         self.ui.languageSelector.addItems(langs)
@@ -25,6 +31,10 @@ class Settings(QDialog):
         self.ui.checkBox.setChecked(backside)
 
     def accept(self):
+        """
+            Called when user clicks on the "accept" button. Passes through the settings values to the callback
+            function - which is passed through as a parameter to the class upon initialization.
+        """
         lookupTrigger = self.ui.lookupTrigger.keySequence().toString()
         lang = self.ui.languageSelector.currentText()
         f_or_b = self.ui.checkBox.isChecked()

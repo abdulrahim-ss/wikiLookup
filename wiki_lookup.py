@@ -67,6 +67,7 @@ class wikiLookup:
         This method is deprecated in wikiLookup, but is still included because it might be useful for other
         add-on developers. It can read files from within the add-on's package folder, but can be modified to
         access any file on the user's device. Unsecure and unrecommended.
+        However, I have used the same technique in 'Config/add_on.py' to access the list of Wikipedias available.
         """
         filepath = Path(dirname(realpath(__file__)), source_name)
 
