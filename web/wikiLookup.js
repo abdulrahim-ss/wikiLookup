@@ -1,4 +1,4 @@
-if(document.getElementById('temp') == null){
+if(document.getElementById('temp') === null){
 const temp = document.createElement("div")
 temp.setAttribute("id", "temp")
 document.body.appendChild(temp)
@@ -27,7 +27,7 @@ if (globalThis.backside && !card_is_flipped) return
 let sel_element = window.getSelection()
 let lookUpTxt = sel_element.toString().trim()
 
-if (lookUpTxt == "") return
+if (lookUpTxt === "") return
 
 let pos = sel_element.getRangeAt(0).getBoundingClientRect()
 
