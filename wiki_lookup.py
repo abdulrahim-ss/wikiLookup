@@ -50,11 +50,11 @@ class wikiLookup:
         web_content.css.append(
             f"/_addons/{addon_package}/web/wikiLookup.css")
 
-        web_content.head += ("<script>" + f"globalThis.lookup_trigger = \"{lookup_trigger.value}\";\n" + \
-                             f"globalThis.lookup_language = \"{lookup_language.value}\";\n" + \
+        web_content.head += ("<script>\n" + f"globalThis.lookup_trigger = \"{lookup_trigger.value}\";\n" + \
+                            #  f"globalThis.lookup_language = \"{lookup_language.value}\";\n" + \
                              f"globalThis.backside = {str(backside.value).lower()};\n" + \
                              theme + \
-                             "</script>")
+                             "\n</script>")
 
         web_content.js.append(
             f"/_addons/{addon_package}/web/addon_trigger.js")

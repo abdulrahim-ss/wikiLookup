@@ -40,41 +40,69 @@ if (pos.top > window.innerHeight / 2) {
 else {
     temp.style.top = `calc(${pos.top}px + ${pos.height}px)`
 }
-await createWikiToolTip(globalThis.lookup_language, lookUpTxt, placement)
+await createWikiToolTip(lookUpTxt, placement)
 })
 //////////////////////main end/////////////////////////////
 
+const icon = () => {
+    let v = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    v.setAttribute("height", "1em");
+    v.setAttribute("viewBox", "0 0 320 512");
+    let p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p.setAttribute("d", "M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z");
+    v.appendChild(p);
+    return v;
+}
 
-async function createWikiToolTip(lang, search, placement) {
+async function createWikiToolTip(search, placement) {
+    let search_result = {}
     let wiki = document.createElement("div")
     let thumbnail = new Image()
     let blurb = document.createElement("div")
+    let refresh = document.createElement("button")
 
     thumbnail.classList.add("wiki-thumb")
     wiki.classList.add("tippy-wiki")
     blurb.classList.add("tippy-wiki-blurb")
+    refresh.classList.add("tippy-refresh-button")
+    refresh.setAttribute("title", "Show next matching article")
+    refresh.appendChild(icon())
 
-    let previewData = await createWikiPreview(lang, search)
+    msg = {"action": "search", "message": search}
+    pycmd(JSON.stringify(msg))
+    let previewData = await createWikiPreview(search_result.lang, search_result.title)
+    
+    refresh.addEventListener('click', async () => {
+        msg = {"action": "next", "message": ""}
+        pycmd(JSON.stringify(msg))
+        let previewData = await createWikiPreview(search_result.lang, search_result.title)
+        thumbnail.src = previewData.thumbSrc
+        blurb.innerHTML = previewData.blurbTxt
+    })
 
     thumbnail.src = previewData.thumbSrc
     blurb.innerHTML = previewData.blurbTxt
     wiki.appendChild(thumbnail)
     wiki.appendChild(blurb)
+    wiki.appendChild(refresh)
 
     var [instance] = tippy("#temp", {
+        allowHTML: true,
         content: wiki,
         sticky: true,
         theme: globalThis.theme,
         appendTo: document.body,
-        delay: [100, 100],
+        //delay: [100, 100],
         touch: ["hold", 300],
         animation: "scale-extreme",
-        placement: placement
+        placement: placement,
+        interactive: true,
+        cursor: 'default',
     })
     instance.show()
 }
 
-async function createWikiPreview(lang, search) {
+async function createWikiPreview(lang, title) {
     let thumbParams = {
         action: "query",
         format: "json",
@@ -89,7 +117,6 @@ async function createWikiPreview(lang, search) {
         exsentences: 2,
         exintro: 1,
     }
-    let title = await getTitle(lang, search)
     let thumbSrc = await getData(lang, title, thumbParams)
     let blurbTxt = await getData(lang, title, blurbParams)
     thumbSrc = thumbSrc.thumbnail.source
@@ -105,11 +132,12 @@ async function createWikiPreview(lang, search) {
 async function getData(lang, title, params) {
     params.titles = title
     let url = wikiUrl(lang, params)
-    let response = await wikiFetch(url)
+    let response = await fetcher(url)
     let pages = response.query.pages
     return pages[Object.keys(pages)[0]]
 }
 
+/************* DEPRECATED ************/
 async function getTitle(lang, search) {
     var titleParams = {
         action: "query",
@@ -124,6 +152,7 @@ async function getTitle(lang, search) {
     let title = response.query.search[0].title
     return title
 }
+///////////////////////////////////////
 
 var wikiUrl = (lang, params) => {
     let url = `https://${lang}.wikipedia.org/w/api.php`;
@@ -134,7 +163,7 @@ var wikiUrl = (lang, params) => {
     return url
 }
 
-async function wikiFetch(url) {
+async function fetcher(url) {
     return new Promise((resolve, reject) => {
         fetch(url)
         .then(function (response) { return response.json(); })
