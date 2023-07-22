@@ -13,13 +13,13 @@ from .theme_manager import decide_theme
 class wikiLookup:
     """
         wikiLookup is the injector class, responsible for injecting, configuring, and initializing
-        the add-on's code in Anki's webview. It injects the javascript and css code in webview (only when
+        the add-on's code in Anki's webview. It injects the javascript and css code in webviewer (only when
         the context is Reviewer, i.e. the reviewer is active), which is reesponsible for generating the
         pop-up tooltips for the Lookup word.
     """
     def __init__(self):
         """
-            __init__ method in all of wikiLookup's classes are responsible of binding the functionality of
+            __init__ method in all of wikiLookup's classes are responsible for binding the functionality of
             the class to Anki's hooks. This particular __init__ allows on_webview_will_set_content method to
             be called whenever a webview is initialized, i.e. whenever a user navigates to a new window/context.
         """

@@ -10,7 +10,7 @@ from aqt.gui_hooks import addons_dialog_will_show
 from .settings import Settings
 from .config import lookup_trigger, lookup_language, backside
 
-VERSION = "2.0"
+VERSION = "1.0"
 
 class configDialogue:
     """

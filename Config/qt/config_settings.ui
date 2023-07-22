@@ -1,13 +1,10 @@
-<!--
-    .ui file generated using the qt designer program and compiled to python code using the following commands:
-        python3 -m PyQt5.uic.pyuic "<filename>" > "path/to/add-on/Config/qt/qt5/config_settings.py"
-        python3 -m PyQt6.uic.pyuic "<filename>" > "path/to/add-on/Config/qt/qt6/config_settings.py"
--->
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     .ui file generated using the qt designer program and compiled to python code using the following commands:
         python3 -m PyQt5.uic.pyuic "<filename>" > "path/to/add-on/Config/qt/qt5/config_settings.py"
         python3 -m PyQt6.uic.pyuic "<filename>" > "path/to/add-on/Config/qt/qt6/config_settings.py"
+    
+    Do note that you nead to run "pip3 install PyQt5" "pip3 install PyQt6" before you can compile this file
 -->
 <ui version="4.0">
  <class>Settings</class>

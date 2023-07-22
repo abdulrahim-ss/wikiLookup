@@ -3,8 +3,9 @@ from aqt import mw
 
 class reviewer_checker:
     """
-        Check whether the answer of the card is shown or not yet. It allows the configuration of whether the
-        add-on will trigger only when answer is shown or whenever.
+        Check whether the answer of the card is shown. It allows the user to configure when the add-on will
+        be triggered - it can be triggered either only when answer is shown, or even in the question when the
+        card is not yet flipped.
     """
     def __init__(self):
         reviewer_did_show_answer.append(self.on_reviewer_did_show_answer)

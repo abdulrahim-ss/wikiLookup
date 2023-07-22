@@ -3,6 +3,7 @@ const temp = document.createElement("div")
 temp.setAttribute("id", "temp")
 document.body.appendChild(temp)
 }
+var search_result = null;
 
 card_is_flipped = false;
 const question_is_shown = () => {
@@ -55,37 +56,40 @@ const icon = () => {
 }
 
 async function createWikiToolTip(search, placement) {
-    let search_result = {}
     let wiki = document.createElement("div")
     let thumbnail = new Image()
     let blurb = document.createElement("div")
-    let refresh = document.createElement("button")
+    let next = document.createElement("button")
 
     thumbnail.classList.add("wiki-thumb")
     wiki.classList.add("tippy-wiki")
     blurb.classList.add("tippy-wiki-blurb")
-    refresh.classList.add("tippy-refresh-button")
-    refresh.setAttribute("title", "Show next matching article")
-    refresh.appendChild(icon())
+    next.classList.add("wiki-next-button")
+    next.setAttribute("title", "Show next matching article")
+    next.appendChild(icon())
 
-    msg = {"action": "search", "message": search}
-    pycmd(JSON.stringify(msg))
-    let previewData = await createWikiPreview(search_result.lang, search_result.title)
+    msg = {action: "search", message: search}
+    await wait_for_response(msg)
+    let previewData = await createWikiPreview(search_result['lang'], search_result['title'])
     
-    refresh.addEventListener('click', async () => {
-        msg = {"action": "next", "message": ""}
-        pycmd(JSON.stringify(msg))
-        let previewData = await createWikiPreview(search_result.lang, search_result.title)
+    next.addEventListener('click', async () => {
+        search_result = null
+        msg = {"action": "next"}
+        await wait_for_response(msg)
+        previewData = await createWikiPreview(search_result['lang'], search_result['title'])
         thumbnail.src = previewData.thumbSrc
         blurb.innerHTML = previewData.blurbTxt
+        if (previewData.thumbSrc == null) thumbnail.style.display = "none"
+        else if (previewData.thumbSrc) thumbnail.style.display = "inline"
     })
 
     thumbnail.src = previewData.thumbSrc
     blurb.innerHTML = previewData.blurbTxt
     wiki.appendChild(thumbnail)
     wiki.appendChild(blurb)
-    wiki.appendChild(refresh)
-
+    wiki.appendChild(next)
+    if (previewData.thumbSrc == null) thumbnail.style.display = "none"
+    else if (previewData.thumbSrc) thumbnail.style.display = "inline"
     var [instance] = tippy("#temp", {
         allowHTML: true,
         content: wiki,
@@ -119,7 +123,7 @@ async function createWikiPreview(lang, title) {
     }
     let thumbSrc = await getData(lang, title, thumbParams)
     let blurbTxt = await getData(lang, title, blurbParams)
-    thumbSrc = thumbSrc.thumbnail.source
+    thumbSrc = "thumbnail" in thumbSrc ? thumbSrc.thumbnail.source : null
     blurbTxt = blurbTxt.extract
     let previewData = {
         "title": title,
@@ -164,12 +168,26 @@ var wikiUrl = (lang, params) => {
 }
 
 async function fetcher(url) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         fetch(url)
         .then(function (response) { return response.json(); })
         .then(function (response) {
             resolve(response)
         })
         .catch(function (error) { console.log(error); });
+    })
+}
+
+async function wait_for_response(msg) {
+    search_result = null
+    pycmd(JSON.stringify(msg))
+    return new Promise(resolve => {
+        const checker = () => {
+            if (search_result != null) {resolve(search_result);}
+            else {
+                setTimeout(checker, 20);
+            }
+        }
+        checker();
     })
 }
