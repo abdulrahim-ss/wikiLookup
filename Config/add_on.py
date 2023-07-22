@@ -8,9 +8,9 @@ from aqt.addons import AddonsDialog
 from aqt.gui_hooks import addons_dialog_will_show
 
 from .settings import Settings
-from .config import lookup_trigger, lookup_language, backside
+from .config import lookup_trigger, backside
 
-VERSION = "1.0"
+VERSION = "2.0"
 
 class configDialogue:
     """
@@ -25,12 +25,12 @@ class configDialogue:
             self.langs = json.load(file)
             file.close()
 
-    def set_settings(self, shortcut: str, lang: str, front_or_back: bool) -> None:
+    def set_settings(self, shortcut: str, front_or_back: bool) -> None:
         """
             Set the add-on's settings to the user specified values (in the config dialogue).
         """
         lookup_trigger.value = shortcut
-        lookup_language.value = self.langs[lang]
+        # lookup_language.value = self.langs[lang]
         backside.value = front_or_back
 
     def save_addons_window(self, addons: Optional[AddonsDialog]) -> None:
@@ -48,8 +48,8 @@ class configDialogue:
         dialog.setupUi(
             lookup_trigger.value,
             VERSION,
-            self.langs.keys(),
-            list(self.langs.keys())[list(self.langs.values()).index(lookup_language.value)],
+            # self.langs.keys(),
+            # list(self.langs.keys())[list(self.langs.values()).index(lookup_language.value)],
             backside.value,
         )
         return dialog.open()

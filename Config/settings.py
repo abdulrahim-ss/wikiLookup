@@ -20,14 +20,14 @@ class Settings(QDialog):
         self.cb = callback
         self.layout().setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
-    def setupUi(self, shortcut: str, Version: str, langs: list, current_lang: str, backside: bool) -> None:
+    def setupUi(self, shortcut: str, Version: str, backside: bool) -> None:
         """
             Sets the values for the UI elements in the config dialogue. Called upon initialization.
         """
         self.ui.lookupTrigger.setKeySequence(QKeySequence(shortcut))
         self.ui.version.setText(f"v {Version}")
-        self.ui.languageSelector.addItems(langs)
-        self.ui.languageSelector.setCurrentText(current_lang)
+        # self.ui.languageSelector.addItems(langs)
+        # self.ui.languageSelector.setCurrentText(current_lang)
         self.ui.checkBox.setChecked(backside)
 
     def accept(self):
@@ -36,7 +36,7 @@ class Settings(QDialog):
             function - which is passed through as a parameter to the class upon initialization.
         """
         lookupTrigger = self.ui.lookupTrigger.keySequence().toString()
-        lang = self.ui.languageSelector.currentText()
+        # lang = self.ui.languageSelector.currentText()
         f_or_b = self.ui.checkBox.isChecked()
-        self.cb(lookupTrigger, lang, f_or_b)
+        self.cb(lookupTrigger, f_or_b)
         super().accept()

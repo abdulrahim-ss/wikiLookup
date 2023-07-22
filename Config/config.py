@@ -28,5 +28,5 @@ class ProfileConfig:
 
 
 lookup_trigger = ProfileConfig("lookupTrigger", "W")
-lookup_language = ProfileConfig("lookupLanguage", "en")
+# lookup_language = ProfileConfig("lookupLanguage", "en")
 backside = ProfileConfig("backside", True)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'config_settings.ui'
+# Form implementation generated from reading ui file 'config_settings(new).ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -36,16 +36,6 @@ class Ui_Settings(object):
         self.gridLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
         self.gridLayout.setVerticalSpacing(3)
         self.gridLayout.setObjectName("gridLayout")
-        self.languageLabel_2 = QtWidgets.QLabel(Settings)
-        self.languageLabel_2.setObjectName("languageLabel_2")
-        self.gridLayout.addWidget(self.languageLabel_2, 2, 0, 1, 1)
-        self.checkBox = QtWidgets.QCheckBox(Settings)
-        self.checkBox.setText("")
-        self.checkBox.setObjectName("checkBox")
-        self.gridLayout.addWidget(self.checkBox, 2, 1, 1, 1)
-        self.languageLabel = QtWidgets.QLabel(Settings)
-        self.languageLabel.setObjectName("languageLabel")
-        self.gridLayout.addWidget(self.languageLabel, 1, 0, 1, 1)
         self.lookupTrigger = QtWidgets.QKeySequenceEdit(Settings)
         self.lookupTrigger.setStatusTip("")
         self.lookupTrigger.setWhatsThis("")
@@ -54,10 +44,13 @@ class Ui_Settings(object):
         self.shortcutLabel = QtWidgets.QLabel(Settings)
         self.shortcutLabel.setObjectName("shortcutLabel")
         self.gridLayout.addWidget(self.shortcutLabel, 0, 0, 1, 1)
-        self.languageSelector = QtWidgets.QComboBox(Settings)
-        self.languageSelector.setMaxVisibleItems(10)
-        self.languageSelector.setObjectName("languageSelector")
-        self.gridLayout.addWidget(self.languageSelector, 1, 1, 1, 1)
+        self.languageLabel_2 = QtWidgets.QLabel(Settings)
+        self.languageLabel_2.setObjectName("languageLabel_2")
+        self.gridLayout.addWidget(self.languageLabel_2, 1, 0, 1, 1)
+        self.checkBox = QtWidgets.QCheckBox(Settings)
+        self.checkBox.setText("")
+        self.checkBox.setObjectName("checkBox")
+        self.gridLayout.addWidget(self.checkBox, 1, 1, 1, 1)
         self.outerGrid.addLayout(self.gridLayout, 0, 0, 2, 4)
         self.infoLabel = QtWidgets.QLabel(Settings)
         self.infoLabel.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
@@ -67,7 +60,6 @@ class Ui_Settings(object):
         self.outerGrid.addWidget(self.infoLabel, 4, 1, 1, 3)
 
         self.retranslateUi(Settings)
-        self.languageSelector.setCurrentIndex(-1)
         self.buttonBox.accepted.connect(Settings.accept) # type: ignore
         self.buttonBox.rejected.connect(Settings.reject) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Settings)
@@ -76,12 +68,9 @@ class Ui_Settings(object):
         _translate = QtCore.QCoreApplication.translate
         Settings.setWindowTitle(_translate("Settings", "WikiLookup config"))
         self.version.setText(_translate("Settings", "V 1.0.0"))
-        self.languageLabel_2.setToolTip(_translate("Settings", "Whether to always show the lookup pop-up or only when card is flipped"))
-        self.languageLabel_2.setText(_translate("Settings", "Only trigger if card is flipped?"))
-        self.languageLabel.setToolTip(_translate("Settings", "The language wiki in which the add-on will look up the selected word(s)"))
-        self.languageLabel.setText(_translate("Settings", "Choose Lookup language"))
         self.lookupTrigger.setToolTip(_translate("Settings", "Left-click and choose key combo, then hit enter"))
         self.shortcutLabel.setToolTip(_translate("Settings", "The keyboard shortcut for the add-on to trigger"))
         self.shortcutLabel.setText(_translate("Settings", "Lookup shortcut trigger"))
-        self.languageSelector.setToolTip(_translate("Settings", "The language wiki in which the add-on will look up the selected word(s)"))
+        self.languageLabel_2.setToolTip(_translate("Settings", "Whether to always show the lookup pop-up or only when card is flipped"))
+        self.languageLabel_2.setText(_translate("Settings", "Only trigger if card is flipped?"))
         self.infoLabel.setText(_translate("Settings", "For changes to apply, please reinitialize deck (go back to deck picker and reopen your study deck)"))

@@ -7,7 +7,7 @@ from aqt.gui_hooks import webview_will_set_content
 from aqt.reviewer import Reviewer
 from aqt.webview import WebContent
 
-from .Config.config import lookup_trigger, lookup_language, backside
+from .Config.config import lookup_trigger, backside
 from .theme_manager import decide_theme
 
 class wikiLookup:

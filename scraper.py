@@ -47,7 +47,10 @@ class Scraper:
         if not data:
             return
         self.matches = self.re_article_url.finditer(data)
-        self.article = next(self.matches)
+        try:
+            self.article = next(self.matches)
+        except StopIteration:
+            return
         self.lang = unquote(self.article.group('lang'))
         self.title = unquote(self.article.group("title"))
 
@@ -75,12 +78,17 @@ class Scraper:
 
 if __name__ == "__main__":
     scraper = Scraper()
-    query = scraper.preferred_lang + "lego"
+    query = "Saltvatten"
 
-    while True:
-        inp = input()
-        if inp == "next":
-            scraper.next_article()
-        else:
-            scraper.search(inp)
-        print(scraper.lang, "\t\t", scraper.title, "\n\n")
+    data = scraper.fetch_data(scraper.ddg_querier, query)
+    with open("etc/search.html", "w", encoding="utf-8") as f:
+        f.write(data)
+        f.close()
+
+    # while True:
+    #     inp = input()
+    #     if inp == "next":
+    #         scraper.next_article()
+    #     else:
+    #         scraper.search(inp)
+    #     print(scraper.lang, "\t\t", scraper.title, "\n\n")
